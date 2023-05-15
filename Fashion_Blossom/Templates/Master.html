@@ -34,112 +34,22 @@
   
   <!-- Main Stylesheet -->
   <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
 </head>
 
 <body id="body">
 
-    <!-- Start Top Header Bar -->
-    <section class="top-header">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4 col-xs-12 col-sm-4">
-                    <div class="contact-number">
-                        <i class="tf-ion-ios-telephone"></i>
-                        <span>0129- 12323-123123</span>
-                    </div>
-                </div>
-                <div class="col-md-4 col-xs-12 col-sm-4">
-                    <!-- Site Logo -->
-                    <div class="logo text-center">
-                        <a href="index.html">
-                            <!-- replace logo here -->
-                            <svg width="135px" height="29px" viewBox="0 0 155 29" version="1.1" xmlns="http://www.w3.org/2000/svg"
-                                xmlns:xlink="http://www.w3.org/1999/xlink">
-                                <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" font-size="45"
-                                    font-family="AustinBold, Austin" font-weight="bold">
-                                    <g id="Group" transform="translate(-108.000000, -297.000000)" fill="#000000">
-                                        <text id="AVIATO">
-                                            <tspan x="108.94" y="325">FB</tspan>
-                                        </text>
-                                    </g>
-                                </g>
-                            </svg>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-md-4 col-xs-12 col-sm-4">
-                    <!-- Cart -->
-                    <ul class="top-menu text-right list-inline">
-                        <li class="dropdown cart-nav dropdown-slide">
-                            <a href="Wishlist.html" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown">
-                                <i class="fa-solid fa-circle-heart"></i>Wishlist</a>
-                            <div class="dropdown-menu cart-dropdown">
-                                <!-- Cart Item -->
-                                <div class="media">
-                                    <a class="pull-left" href="#!">
-                                        <img class="media-object" src="{% static 'images/shop/cart/cart-1.jpg' %}" alt="image" />
-                                    </a>
-                                    <div class="media-body">
-                                        <h4 class="media-heading"><a href="#!">Ladies Bag</a></h4>
-                                        <div class="cart-price">
-                                            <span>1 x</span>
-                                            <span>1250.00</span>
-                                        </div>
-                                        <h5><strong>$1200</strong></h5>
-                                    </div>
-                                    <a href="#!" class="remove"><i class="tf-ion-close"></i></a>
-                                </div><!-- / Cart Item -->
-                                <!-- Cart Item -->
-                                <div class="media">
-                                    <a class="pull-left" href="#!">
-                                        <img class="media-object" src="{% static 'images/shop/cart/cart-2.jpg' %}" alt="image" />
-                                    </a>
-                                    <div class="media-body">
-                                        <h4 class="media-heading"><a href="#!">Ladies Bag</a></h4>
-                                        <div class="cart-price">
-                                            <span>1 x</span>
-                                            <span>1250.00</span>
-                                        </div>
-                                        <h5><strong>$1200</strong></h5>
-                                    </div>
-                                    <a href="#!" class="remove"><i class="tf-ion-close"></i></a>
-                                </div><!-- / Cart Item -->
     
-                                <div class="cart-summary">
-                                    <span>Total</span>
-                                    <span class="total-price">$1799.00</span>
-                                </div>
-                                <ul class="text-center cart-buttons">
-                                    <li><a href="{% url 'wishlist' %}" class="btn btn-small">View Wishlist</a></li>
-                                    <li><a href="{% url 'checkout' %}" class="btn btn-small btn-solid-border">Checkout</a></li>
-                                </ul>
-                            </div>
-    
-                        </li><!-- / Cart -->
-    
-                        <!-- Search -->
-                        <li class="dropdown search dropdown-slide">
-                            <a href="#!" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"><i
-                                    class="tf-ion-ios-search-strong"></i> Search</a>
-                            <ul class="dropdown-menu search-dropdown">
-                                <li>
-                                    <form action="post"><input type="search" class="form-control" placeholder="Search..."></form>
-                                </li>
-                            </ul>
-                        </li>
-                        <!-- / Search -->
-                    </ul><!-- / .nav .navbar-nav .navbar-right -->
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- End Top Header Bar -->
-
     <!-- Main Menu Section -->
     <section class="menu">
         <nav class="navbar navigation">
             <div class="container">
+                <div class="col-md-4 col-xs-12 col-sm-4">
+                    <div class="contact-number">
+                        <img src="{% static 'images/logo.jpg' %}" style="height:40px">
+                     </div>
+                </div>
                 <div class="navbar-header">
                     <h2 class="menu-title">Main Menu</h2>
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
@@ -159,58 +69,18 @@
                         <!-- Home -->
                         <li class="dropdown ">
                             <a href="{% url 'home' %}">Home</a>
-                        </li><!-- / Home -->
-    
-    
-                        <!-- Elements -->
-                        <li class="dropdown dropdown-slide">
-                            <a href="#!" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="350"
-                                role="button" aria-haspopup="true" aria-expanded="false">Shop <span
-                                    class="tf-ion-ios-arrow-down"></span></a>
-                            <div class="dropdown-menu">
-                                <div class="row">
-    
-                                    <!-- Basic -->
-                                    <div class="col-lg-6 col-md-6 mb-sm-3">
-                                        <ul>
-                                            <li class="dropdown-header">Pages</li>
-                                            <li role="separator" class="divider"></li>
-                                            <li><a href="{% url 'shop' %}">Shop</a></li>
-                                            <li><a href="{% url 'checkout' %}">Checkout</a></li>
-                                            <li><a href="{% url 'checkout' %}">Wishlist</a></li>
-                                            <li><a href="{% url 'confirmation' %}">Confirmation</a></li>
-    
-                                        </ul>
-                                    </div>
-    
-                                    <!-- Layout -->
-                                    <div class="col-lg-6 col-md-6 mb-sm-3">
-                                        <ul>
-                                            <li class="dropdown-header">Layout</li>
-                                            <li role="separator" class="divider"></li>
-                                            <li><a href="product-single.html">Product Details</a></li>
-                                            <li><a href="shop-sidebar.html">Shop With Sidebar</a></li>
-    
-                                        </ul>
-                                    </div>
-    
-                                </div><!-- / .row -->
-                            </div><!-- / .dropdown-menu -->
-                        </li><!-- / Elements -->
-    
-    
-                        <!-- Pages -->
+                        </li>
+                        <!-- / Home -->
+
+                        <!-- Shop Start -->
                         <li class="dropdown full-width dropdown-slide">
-                            <a href="#!" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="350"
-                                role="button" aria-haspopup="true" aria-expanded="false">Pages <span
-                                    class="tf-ion-ios-arrow-down"></span></a>
+                            <a href="#!" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="350" role="button" aria-haspopup="true" aria-expanded="false">Shop<span class="tf-ion-ios-arrow-down"></span></a>
                             <div class="dropdown-menu">
                                 <div class="row">
-    
                                     <!-- Introduction -->
-                                    <div class="col-sm-3 col-xs-12">
+                                    <div class="col-sm-4 col-xs-12">
                                         <ul>
-                                            <li class="dropdown-header">Introduction</li>
+                                            <li class="dropdown-header">Tops</li>
                                             <li role="separator" class="divider"></li>
                                             <li><a href="{% url 'contact' %}">Contact Us</a></li>
                                             <li><a href="{% url 'about' %}">About Us</a></li>
@@ -220,9 +90,9 @@
                                     </div>
     
                                     <!-- Contact -->
-                                    <div class="col-sm-3 col-xs-12">
+                                    <div class="col-sm-4 col-xs-12">
                                         <ul>
-                                            <li class="dropdown-header">Dashboard</li>
+                                            <li class="dropdown-header">Bottom</li>
                                             <li role="separator" class="divider"></li>
                                             <li><a href="{% url 'dashboard' %}">User Interface</a></li>
                                             <li><a href="{% url 'orders' %}">Orders</a></li>
@@ -230,28 +100,93 @@
                                             <li><a href="{% url 'profile_details' %}">Profile Details</a></li>
                                         </ul>
                                     </div>
-    
                                     <!-- Utility -->
-                                    <div class="col-sm-3 col-xs-12">
+
+                                    <div class="col-sm-4 col-xs-12">
                                         <ul>
-                                            <li class="dropdown-header">Utility</li>
+                                            <li class="dropdown-header">Traditional</li>
                                             <li role="separator" class="divider"></li>
                                             <li><a href="{% url 'login' %}">Login Page</a></li>
                                             <li><a href="{% url 'register' %}">Signin Page</a></li>
                                             <li><a href="{% url 'forget' %}">Forget Password</a></li>
                                         </ul>
                                     </div>
-    
-                                    <!-- Mega Menu -->
-                                    <div class="col-sm-3 col-xs-12">
-                                        <a href="{% url 'shop' %}">
-                                            <img class="img-responsive" src="{% static 'images/shop/header-img.jpg' %}" alt="menu image" />
-                                        </a>
-                                    </div>
                                 </div><!-- / .row -->
                             </div><!-- / .dropdown-menu -->
-                        </li><!-- / Pages -->
-                        
+                        </li>
+                        <!-- / Shop End -->
+
+                        <!-- Dashboard -->
+                        <li class="dropdown dropdown-slide">
+                            {% if user.is_authenticated %}
+                            <a href="#!" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="350"
+                                role="button" aria-haspopup="true" aria-expanded="false">Dashboard <span
+                                    class="tf-ion-ios-arrow-down"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="{% url 'dashboard' %}">User Interface</a></li>
+                                <li><a href="{% url 'orders' %}">Orders</a></li>
+                                <li><a href="{% url 'address' %}">Address</a></li>
+                                <li><a href="{% url 'profile_details' %}">Profile Details</a></li>
+                                <li><a href="{% url 'logout' %}">Logout</a></li>
+                                <!--<li><a href="blog-left-sidebar.html">Blog Left Sidebar</a></li>
+                                <li><a href="blog-right-sidebar.html">Blog Right Sidebar</a></li>
+                                <li><a href="blog-full-width.html">Blog Full Width</a></li>
+                                <li><a href="blog-grid.html">Blog 2 Columns</a></li>
+                                <li><a href="blog-single.html">Blog Single</a></li>-->
+                            </ul>
+                            {% else %}
+                            <li class="dropdown">
+                                <a href="{% url 'login' %}">Login</a>
+                            </li>
+                            {% endif %}
+                        </li>
+                        <!-- / Dashboard -->
+
+                        <!-- About -->
+                        <li class="dropdown dropdown-slide">
+                            <a href="#!" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="350"
+                                role="button" aria-haspopup="true" aria-expanded="false">About<span
+                                    class="tf-ion-ios-arrow-down"></span></a>
+                            <div class="dropdown-menu">
+                                <div class="row">
+    
+                                    <!-- Basic -->
+                                    <div class="col-lg-6 col-md-6 mb-sm-3">
+                                        <ul>
+                                            <li role="separator" class="divider"></li>
+                                            <li><a href="{% url 'about' %}">About Us</a></li>
+                                            <li><a href="{% url 'faq' %}">FAQ</a></li>
+                                        </ul>
+                                    </div>
+    
+                                    <!-- Layout -->
+                                    <div class="col-lg-6 col-md-6 mb-sm-3">
+                                        <ul>
+                                            <li role="separator" class="divider"></li>
+                                            <li><a href="{% url 'product_details' %}">Product Details</a></li>
+                                        </ul>
+                                    </div>
+    
+                                </div><!-- / .row -->
+                            </div><!-- / .dropdown-menu -->
+                        </li><!-- / Elements -->
+    
+                        <!-- Home -->
+                        <li class="dropdown">
+                            <a href="{% url 'contact' %}">Contact Us</a>
+                        </li>
+                        <li class="dropdown">
+                            <a href="{% url 'wishlist' %}"><i class='bx bxs-heart-circle bx-md'></i></a>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#!" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"><i class='bx bx-search-alt-2 bx-md'></i> </a>
+                            <ul class="dropdown-menu search-dropdown">
+                                <li>
+                                    <form action="post"><input type="search" class="form-control" placeholder="Search..."></form>
+                                </li>
+                            </ul>
+                        </li>
+                        <!-- / Home -->
                     </ul><!-- / .nav .navbar-nav -->
     
                 </div>
