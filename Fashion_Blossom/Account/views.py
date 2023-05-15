@@ -44,7 +44,41 @@ def register(request):
 
 
 def login(request):
-    return render(request,'login.html')
+    if request.method=='POST':
+        username=request.POST.get('uname')
+        password=request.POST.get('password') 
+        if username=='' and password=='':
+            data={
+                    'error':True,
+                    'msg':'Please enter username and password.',
+                }
+            return render(request,'login.html',data) 
+        elif username=='':
+            data={
+                    'error':True,
+                    'msg':'Please enter username.',
+                }
+            return render(request,'login.html',data) 
+        elif password=='':
+            data={
+                    'error':True,
+                    'msg':'Please enter password.',
+                }
+            return render(request,'login.html',data)
+        else:
+            user=auth.authenticate(username=username,password=password)
+            if user is not None:
+                auth.login(request,user)
+                return redirect('/')
+            else:
+                data={
+                    'error':True,
+                    'msg':'Invalid Username and password',
+                }
+                return render(request,'login.html',data)
+            
+    else:
+     return render(request,'login.html')
 
 def forget_password(request):
     return render(request,'forget-password.html')
