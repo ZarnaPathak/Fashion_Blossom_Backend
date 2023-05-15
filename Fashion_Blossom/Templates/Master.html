@@ -178,8 +178,7 @@
                                             <li><a href="{% url 'shop' %}">Shop</a></li>
                                             <li><a href="{% url 'checkout' %}">Checkout</a></li>
                                             <li><a href="{% url 'checkout' %}">Wishlist</a></li>
-                                            <li><a href="pricing.html">Pricing</a></li>
-                                            <li><a href="confirmation.html">Confirmation</a></li>
+                                            <li><a href="{% url 'confirmation' %}">Confirmation</a></li>
     
                                         </ul>
                                     </div>
@@ -213,11 +212,10 @@
                                         <ul>
                                             <li class="dropdown-header">Introduction</li>
                                             <li role="separator" class="divider"></li>
-                                            <li><a href="contact.html">Contact Us</a></li>
-                                            <li><a href="about.html">About Us</a></li>
-                                            <li><a href="404.html">404 Page</a></li>
-                                            <li><a href="coming-soon.html">Coming Soon</a></li>
-                                            <li><a href="faq.html">FAQ</a></li>
+                                            <li><a href="{% url 'contact' %}">Contact Us</a></li>
+                                            <li><a href="{% url 'about' %}">About Us</a></li>
+                                            <li><a href="{% url 'error' %}">404 Page</a></li>
+                                            <li><a href="{% url 'faq' %}">FAQ</a></li>
                                         </ul>
                                     </div>
     
