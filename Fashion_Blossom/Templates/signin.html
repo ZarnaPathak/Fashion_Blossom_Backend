@@ -34,7 +34,8 @@
     
     <!-- Main Stylesheet -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
-  
+    <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
   </head>
 
 <body id="body">
@@ -45,21 +46,28 @@
       <div class="col-md-6 col-md-offset-3">
         <div class="block text-center">
           <h2 class="text-center">Register Here!</h2>
-          <form class="text-left clearfix" action="{% url 'login' %}">
+          {% if error %}
+                <h5 class="text-danger" style="border:solid red 1px;padding:2px"><i class='bx bxs-error'></i>&nbsp;<b>{{msg}}</b></h5>
+          {% endif %}
+          <form class="text-left clearfix" method="post" action="{% url 'register' %}">
+          {% csrf_token %}
             <div class="form-group">
-              <input type="text" class="form-control"  placeholder="First Name">
+              <input type="text" class="form-control"  placeholder="First Name" name="FirstName">
             </div>
             <div class="form-group">
-              <input type="text" class="form-control"  placeholder="Last Name">
+              <input type="text" class="form-control"  placeholder="Last Name" name="LastName">
             </div>
             <div class="form-group">
-              <input type="text" class="form-control"  placeholder="Username">
+              <input type="text" class="form-control"  placeholder="Username" name="Username">
             </div>
             <div class="form-group">
-              <input type="email" class="form-control"  placeholder="Email">
+              <input type="email" class="form-control"  placeholder="Email" name="Email">
             </div>
             <div class="form-group">
-              <input type="password" class="form-control"  placeholder="Password">
+              <input type="password" class="form-control"  placeholder="password1" name="Password1">
+            </div>
+            <div class="form-group">
+              <input type="password" class="form-control"  placeholder="password2" name="Password2">
             </div>
             <div class="text-center">
               <a href="{% url 'login' %}"><button type="submit" class="btn btn-main text-center">Sign In</button></a>
