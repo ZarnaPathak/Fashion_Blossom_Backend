@@ -33,21 +33,23 @@
                     </tr>
                   </thead>
                   <tbody>
+                  {% for wish in wish_item %}
                     <tr class="">
                       <td class="">
                         <div class="product-info">
-                          <img width="80" src="{% static 'images/shop/cart/cart-1.jpg' %}" alt="" />
-                          <a href="#!">Sunglass</a>
+                          <img width="80" src="{{wish.img1.url}}" alt="" />
+                          <a href="#!">{{wish.product_name}}</a>
                         </div>
                       </td>
-                      <td class="">$200.00</td>
+                      <td class="">&#8377;{{wish.price}}</td>
                       <td class="">
-                        <a class="product-remove" href="#!">Remove</a>
+                        <a class="product-remove" href="{% url 'remove_wish' wish.id %}">Remove</a>
                       </td>
                     </tr>
+                  {% endfor %}
                   </tbody>
                 </table>
-                <a href="{% url 'shop' %}" class="btn btn-main pull-right">Continue Shoping..</a>
+                <a href="" class="btn btn-main pull-right">Continue Shoping..</a>
               </form>
             </div>
           </div>

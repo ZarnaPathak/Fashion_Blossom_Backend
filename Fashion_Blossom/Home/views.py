@@ -1,11 +1,14 @@
 from django.shortcuts import render
-
+from Product.models import Category,SubCategory
 # Create your views here.
 def home(request):
-    return render(request,'index.html')
-
-def shop(request):
-    return render(request,'shop.html')
+    cats=Category.objects.all()
+    subcats=SubCategory.objects.all()
+    ct={
+        'cats':cats,
+        'subcats':subcats
+    }
+    return render(request,'index.html',ct)
 
 def contact(request):
     return render(request,'contact.html')

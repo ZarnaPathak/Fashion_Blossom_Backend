@@ -78,39 +78,19 @@
                             <div class="dropdown-menu">
                                 <div class="row">
                                     <!-- Introduction -->
-                                    <div class="col-sm-4 col-xs-12">
-                                        <ul>
-                                            <li class="dropdown-header">Tops</li>
-                                            <li role="separator" class="divider"></li>
-                                            <li><a href="{% url 'contact' %}">Contact Us</a></li>
-                                            <li><a href="{% url 'about' %}">About Us</a></li>
-                                            <li><a href="{% url 'error' %}">404 Page</a></li>
-                                            <li><a href="{% url 'faq' %}">FAQ</a></li>
-                                        </ul>
-                                    </div>
-    
-                                    <!-- Contact -->
-                                    <div class="col-sm-4 col-xs-12">
-                                        <ul>
-                                            <li class="dropdown-header">Bottom</li>
-                                            <li role="separator" class="divider"></li>
-                                            <li><a href="{% url 'dashboard' %}">User Interface</a></li>
-                                            <li><a href="{% url 'orders' %}">Orders</a></li>
-                                            <li><a href="{% url 'address' %}">Address</a></li>
-                                            <li><a href="{% url 'profile_details' %}">Profile Details</a></li>
-                                        </ul>
-                                    </div>
-                                    <!-- Utility -->
-
-                                    <div class="col-sm-4 col-xs-12">
-                                        <ul>
-                                            <li class="dropdown-header">Traditional</li>
-                                            <li role="separator" class="divider"></li>
-                                            <li><a href="{% url 'login' %}">Login Page</a></li>
-                                            <li><a href="{% url 'register' %}">Signin Page</a></li>
-                                            <li><a href="{% url 'forget' %}">Forget Password</a></li>
-                                        </ul>
-                                    </div>
+                                    {% for cat in cats %}
+                                        <div class="col-sm-4 col-xs-12">
+                                            <ul>
+                                                <li class="dropdown-header">{{cat.name}}</li>
+                                                <li role="separator" class="divider"></li>
+                                                {% for subcat in subcats %}
+                                                    {% if subcat.cat_name == cat.name %}
+                                                        <li><a href="{% url 'shop' subcat.id %}">{{subcat.name}}</a></li>
+                                                    {% endif %}
+                                                {% endfor %}
+                                            </ul>
+                                        </div>
+                                    {% endfor %}
                                 </div><!-- / .row -->
                             </div><!-- / .dropdown-menu -->
                         </li>
@@ -163,7 +143,6 @@
                                     <div class="col-lg-6 col-md-6 mb-sm-3">
                                         <ul>
                                             <li role="separator" class="divider"></li>
-                                            <li><a href="{% url 'product_details' %}">Product Details</a></li>
                                         </ul>
                                     </div>
     

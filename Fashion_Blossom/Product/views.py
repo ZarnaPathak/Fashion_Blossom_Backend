@@ -1,8 +1,29 @@
-from django.shortcuts import render
-
+from django.shortcuts import render,redirect
+from .models import Product,Wishlist
+from django.contrib.auth.models import User
 # Create your views here.
-def wishlist(request):
-    return render(request,'Wishlist.html')
+def shop(request,sid):
+    prods=Product.objects.filter(subcategory=sid)
+    return render(request,'shop.html',{'Products':prods})
 
-def product_details(request):
-    return render(request,'product-single.html')
+def wishlist(request):
+    u_id=request.user.id
+    wish_item=Wishlist.objects.filter(user_id=u_id)
+    return render(request,'Wishlist.html', {'wish_item':wish_item})
+
+def add_to_wish(request,pid):
+    u_id=request.user.id
+    if Wishlist.objects.filter(user_id=u_id,product_id=pid).exists():
+        return redirect('wishlist')
+    else:
+        Wishlist.objects.create(product_id=pid,user_id=u_id)
+        return redirect('wishlist')
+
+def remove_wish(request,wid):
+    rm_wish_prod=Wishlist.objects.get(id=wid)
+    rm_wish_prod.delete()
+    return redirect('wishlist')
+
+def product_details(request,pid):
+    prod_detail=Product.objects.get(id=pid)
+    return render(request,'product-single.html',{'data':prod_detail})
