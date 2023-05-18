@@ -24,6 +24,12 @@ def remove_wish(request,wid):
     rm_wish_prod.delete()
     return redirect('wishlist')
 
+def cart(request):
+    return render(request, 'cart.html')
+
+def add_to_cart(request,pid):
+    return render(request, 'cart.html')
+
 def product_details(request,pid):
     prod_detail=Product.objects.get(id=pid)
     return render(request,'product-single.html',{'data':prod_detail})
