@@ -1,4 +1,5 @@
 {% extends 'Master.html' %} {% block content %} {% load static %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 
     <section class="page-header">
       <div class="container">
@@ -23,90 +24,91 @@
             <div class="col-md-8">
               <div class="block billing-details">
                 <h4 class="widget-title">Billing Details</h4>
-                <form class="checkout-form">
-                  <div class="form-group">
-                    <label for="full_name">Full Name</label>
-                    <input type="text" class="form-control" id="full_name" placeholder="" />
-                  </div>
+                <form class="checkout-form" id="Billing">
+                  {% csrf_token %}
+                  <h3 id="msg2" style="background-color:lightgray"></h3>
                   <div class="form-group">
                     <label for="user_address">Address</label>
-                    <input type="text" class="form-control" id="user_address" placeholder="" />
+                    <input type="text" class="form-control" id="address" placeholder="" required />
                   </div>
                   <div class="checkout-country-code clearfix">
                     <div class="form-group">
                       <label for="user_post_code">Zip Code</label>
-                      <input type="text" class="form-control" id="user_post_code" name="zipcode" value="" />
+                      <input type="text" class="form-control" id="zipcode" value="" required/>
+                    </div>
+                    <div class="form-group">
+                      <label for="user_city">Country</label>
+                      <input type="text" class="form-control" id="country" value="" required/>
+                    </div>
+                  </div>
+                  <div class="checkout-country-code clearfix">
+                    <div class="form-group">
+                      <label for="user_post_code">State</label>
+                      <input type="text" class="form-control" id="state" value="" required/>
                     </div>
                     <div class="form-group">
                       <label for="user_city">City</label>
-                      <input type="text" class="form-control" id="user_city" name="city" value="" />
+                      <input type="text" class="form-control" id="city" value="" required/>
                     </div>
                   </div>
                   <div class="form-group">
-                    <label for="user_country">Country</label>
-                    <input type="text" class="form-control" id="user_country" placeholder="" />
+                    <label for="user_country">Phone</label>
+                    <input type="text" class="form-control" placeholder="" id="phone" required/>
                   </div>
-                </form>
+                </div>
+                <div class="block">
+                  <div class="checkout-product-details">
+                    <div class="payment">
+                      <div class="card-details">
+                          <input type="submit" class="btn btn-main mt-20" value="Save">
+                      </div>
+                    </div>
+                  </div>
               </div>
-              <div class="block">
-				<div class="checkout-product-details">
-					<div class="payment">
-						<div class="card-details">
-							<form  class="checkout-form">
-								<a href="confirmation.html" class="btn btn-main mt-20">Save Details</a >
-							</form>
-						</div>
-					</div>
-				</div>
-              </div>
+            </form>
             </div>
-            <div class="col-md-4">
+            
+          <div class="col-md-4">
               <div class="product-checkout-details">
                 <div class="block">
                   <h4 class="widget-title">Order Summary</h4>
                   <div class="media product-card">
                     <a class="pull-left" href="product-single.html">
-                      <img class="media-object" src="{% static 'images/shop/cart/cart-1.jpg' %}" alt="Image" />
+                      <img class="media-object" src="{{item.product.img1.url}}" alt="Image" />
                     </a>
                     <div class="media-body">
                       <h4 class="media-heading">
-                        <a href="product-single.html">Ambassador Heritage 1921</a>
+                        <a href="product-single.html">{{item.product.product_name}}</a>
                       </h4>
-                      <p class="price">1 x $249</p>
-                      <span class="remove">Remove</span>
+                      <p class="price">{{item.prod_qty}} x &#8377;{{item.product.price}}</p>
+                      <a href="{% url 'item_remove' item.id %}"><span class="remove">Remove</span></a>
                     </div>
                   </div>
-                  <!--<div class="discount-code">
-                        <p>Have a discount ? <a data-toggle="modal" data-target="#coupon-modal" href="#!">enter it here</a></p>
-                     </div>-->
                   <ul class="summary-prices">
                     <li>
-                      <span>Subtotal:</span>
-                      <span class="price">$190</span>
+                      <span>Color :</span>
+                      <span class="price">{{item.prod_color}}</span>
                     </li>
                     <li>
-                      <span>Shipping:</span>
-                      <span>Free</span>
+                      <span>Size :</span>
+                      <span>{{item.prod_size}}</span>
                     </li>
                   </ul>
                   <div class="summary-total">
                     <span>Total</span>
-                    <span>$250</span>
+                    <span>&#8377;{{item.total}}</span>
                   </div>
-				  <div class="block">
-					<div class="checkout-product-details">
-						<div class="payment">
-							<div class="card-details">
-								<form  class="checkout-form">
-									<a href="confirmation.html" class="btn btn-main mt-20">Place Order</a >
-								</form>
-							</div>
-						</div>
-					</div>
-				  </div>
-                  <!--<div class="verified-icon">
-                        <img src="images/shop/verified.png">
-                     </div>-->
+                  <div class="block">
+                  <div class="checkout-product-details">
+                    <div class="payment">
+                      <div class="card-details">
+                        <form  class="checkout-form">
+                          <a href="confirmation.html" class="btn btn-main mt-20">Place Order</a >
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -114,5 +116,31 @@
         </div>
       </div>
     </div>
-   
+    
+<script>
+   //Billing Details
+    $(document).on('submit','#Billing',function(e){
+        e.preventDefault();
+        $.ajax({
+            type:'POST',
+            url:"{% url 'shipping_details' %}",
+            data:{
+              address:$('#address').val(),
+              zipcode:$('#zipcode').val(),
+              country:$('#country').val(),
+              state:$('#state').val(),
+              city:$('#city').val(),
+              phone:$('#phone').val(),
+              csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
+
+            },
+
+            success: function (data) {
+                // alert the error if any error occured
+                $("#msg2").html(data)
+
+            }
+        })
+    })
+</script>
 {% endblock %}

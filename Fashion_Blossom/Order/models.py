@@ -26,13 +26,13 @@ class Order(models.Model):
     status=models.CharField(max_length=30,default=" ",choices=status,blank=True)
 
 class Order_Items(models.Model):
-    order=models.ForeignKey(Order, on_delete=models.CASCADE)
+    order=models.ForeignKey(Order, on_delete=models.CASCADE,null=True,blank=True)
     user=models.ForeignKey(User, on_delete=models.CASCADE)
     product=models.ForeignKey(Product, on_delete=models.CASCADE)
     prod_color=models.CharField(max_length=10)
     prod_size=models.CharField(max_length=10)
     prod_qty=models.IntegerField()
-    total=models.IntegerField()
+    total=models.BigIntegerField()
 
 class Payment(models.Model):
     order=models.ForeignKey(Order, on_delete=models.CASCADE)
@@ -40,7 +40,3 @@ class Payment(models.Model):
     amount=models.IntegerField(default=0)
     is_paid=models.BooleanField(default=False)
     razor_pay_order_id = models.CharField(max_length=100, null=True, blank=True)
-
-    
-
-    
