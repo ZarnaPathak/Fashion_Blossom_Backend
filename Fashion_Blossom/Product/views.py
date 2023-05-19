@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from .models import Product,Wishlist
+from .models import Product,Wishlist,SizeVariant,ColorVarient
 from django.contrib.auth.models import User
 # Create your views here.
 def shop(request,sid):
@@ -30,6 +30,16 @@ def cart(request):
 def add_to_cart(request,pid):
     return render(request, 'cart.html')
 
+def checkout(request):
+    return render(request,'checkout.html')
+
 def product_details(request,pid):
     prod_detail=Product.objects.get(id=pid)
-    return render(request,'product-single.html',{'data':prod_detail})
+    size=SizeVariant.objects.all()
+    color=ColorVarient.objects.all()
+    context={
+        'data':prod_detail,
+        'size':size,
+        'color':color
+    }
+    return render(request,'product-single.html',context)

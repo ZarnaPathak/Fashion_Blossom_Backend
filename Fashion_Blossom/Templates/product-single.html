@@ -66,27 +66,20 @@
 					<p class="product-price">&#8377;{{data.price}}</p>
 					
 					<p class="product-description mt-20">{{data.description}}</p>
-						<div class="color-swatches">
+					<div class="product-size">
 						<span>color:</span>
-						<ul>
-							<li>
-								<a href="#!" class="swatch-violet"></a>
-							</li>
-							<li>
-								<a href="#!" class="swatch-black"></a>
-							</li>
-							<li>
-								<a href="#!" class="swatch-cream"></a>
-							</li>
-						</ul>
+							<select class="form-control">
+								{% for i in color %}
+									<option>{{i.name}}</option>
+								{% endfor %}
+							</select>
 					</div>
 					<div class="product-size">
 						<span>Size:</span>
 						<select class="form-control">
-							<option>S</option>
-							<option>M</option>
-							<option>L</option>
-							<option>XL</option>
+						{% for i in size %}
+							<option>{{i}}</option>
+						{% endfor %}
 						</select>
 					</div>
 					<div class="product-quantity">
@@ -103,7 +96,7 @@
 						</ul>
 					</div>
 					<a href="cart.html" class="btn btn-main mt-20">Add To Wishlist</a> &nbsp;&nbsp;
-					<a href="cart.html" class="btn btn-main mt-20">Buy Now</a>
+					<a href="{% url 'checkout' %}" class="btn btn-main mt-20">Buy Now</a>
 				</div>
 			</div>
 		</div>
