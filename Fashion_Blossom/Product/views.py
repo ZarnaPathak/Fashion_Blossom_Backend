@@ -30,9 +30,6 @@ def cart(request):
 def add_to_cart(request,pid):
     return render(request, 'cart.html')
 
-def checkout(request):
-    return render(request,'checkout.html')
-
 def product_details(request,pid):
     prod_detail=Product.objects.get(id=pid)
     size=SizeVariant.objects.all()
