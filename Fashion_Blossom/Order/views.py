@@ -35,8 +35,21 @@ def shipping_details(request):
     else:
         details=Shipping_Address(user_id=uid,address=address,zipcode=zipcode,country=country,state=state,city=city,phone_no=phone)
         details.save()
-        msg=details.address+" "+details.phone_no
-        return HttpResponse(msg)
+        addid=details.id
+        return HttpResponse(addid)
+    
+def place_order(request):
+    u_id=request.user.id
+    odr_item_id=request.POST.get('odr_itm_id')
+    address=request.POST.get('address')
+    total_price=request.POST.get('tot')
+    porder=Order(user_id=u_id,address_id=address,tot_price=total_price)
+    porder.save()
+    print(porder.id)
+    od=Order_Items.objects.get(id=odr_item_id)
+    od.order_id=porder.id
+    od.save()
+    return render(request, 'confirmation.html')
 
 def checkout(request):
     return render(request,'checkout.html')

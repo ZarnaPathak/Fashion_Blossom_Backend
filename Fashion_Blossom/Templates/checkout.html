@@ -17,44 +17,49 @@
       </div>
     </section>
 
-    <div class="page-wrapper">
-      <div class="checkout shopping">
-        <div class="container">
-          <div class="row">
-            <div class="col-md-8">
-              <div class="block billing-details">
-                <h4 class="widget-title">Billing Details</h4>
-                <form class="checkout-form" id="Billing">
-                  {% csrf_token %}
-                  <h3 id="msg2" style="background-color:lightgray"></h3>
+<div class="page-wrapper">
+  <div class="checkout shopping">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8">
+          <div class="block billing-details">
+            <h4 class="widget-title">Billing Details</h4>
+            <div class="alertPart mt-50" id="msg1" style="display:none">
+              <div class="alert alert-success alert-common alert-dismissible " role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <i class="tf-ion-thumbsup"></i><span>&nbsp;Address Stored Successfully..</span>
+              </div>
+            </div>
+              <form class="checkout-form" id="Billing">
+                {% csrf_token %}
+                
+                <div class="form-group">
+                  <label for="user_address">Address</label>
+                  <input type="text" class="form-control" id="address" placeholder="" required name="address" />
+                </div>
+                <div class="checkout-country-code clearfix">
                   <div class="form-group">
-                    <label for="user_address">Address</label>
-                    <input type="text" class="form-control" id="address" placeholder="" required />
-                  </div>
-                  <div class="checkout-country-code clearfix">
-                    <div class="form-group">
-                      <label for="user_post_code">Zip Code</label>
-                      <input type="text" class="form-control" id="zipcode" value="" required/>
-                    </div>
-                    <div class="form-group">
-                      <label for="user_city">Country</label>
-                      <input type="text" class="form-control" id="country" value="" required/>
-                    </div>
-                  </div>
-                  <div class="checkout-country-code clearfix">
-                    <div class="form-group">
-                      <label for="user_post_code">State</label>
-                      <input type="text" class="form-control" id="state" value="" required/>
-                    </div>
-                    <div class="form-group">
-                      <label for="user_city">City</label>
-                      <input type="text" class="form-control" id="city" value="" required/>
-                    </div>
+                    <label for="user_post_code">Zip Code</label>
+                    <input type="text" class="form-control" id="zipcode" value="" required/>
                   </div>
                   <div class="form-group">
-                    <label for="user_country">Phone</label>
-                    <input type="text" class="form-control" placeholder="" id="phone" required/>
+                    <label for="user_city">Country</label>
+                    <input type="text" class="form-control" id="country" value="" required/>
                   </div>
+                </div>
+                <div class="checkout-country-code clearfix">
+                  <div class="form-group">
+                    <label for="user_post_code">State</label>
+                    <input type="text" class="form-control" id="state" value="" required/>
+                  </div>
+                  <div class="form-group">
+                    <label for="user_city">City</label>
+                    <input type="text" class="form-control" id="city" value="" required/>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="user_country">Phone</label>
+                  <input type="text" class="form-control" placeholder="" id="phone" required/>
                 </div>
                 <div class="block">
                   <div class="checkout-product-details">
@@ -64,18 +69,19 @@
                       </div>
                     </div>
                   </div>
-              </div>
-            </form>
-            </div>
-            
-          <div class="col-md-4">
-              <div class="product-checkout-details">
-                <div class="block">
-                  <h4 class="widget-title">Order Summary</h4>
+                </div>
+              </form>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="product-checkout-details">
+              <div class="block">
+                <h4 class="widget-title">Order Summary</h4>
                   <div class="media product-card">
-                    <a class="pull-left" href="product-single.html">
-                      <img class="media-object" src="{{item.product.img1.url}}" alt="Image" />
-                    </a>
+                      <a class="pull-left" href="product-single.html">
+                        <img class="media-object" src="{{item.product.img1.url}}" alt="Image" />
+                      </a>
                     <div class="media-body">
                       <h4 class="media-heading">
                         <a href="product-single.html">{{item.product.product_name}}</a>
@@ -99,23 +105,27 @@
                     <span>&#8377;{{item.total}}</span>
                   </div>
                   <div class="block">
-                  <div class="checkout-product-details">
-                    <div class="payment">
-                      <div class="card-details">
-                        <form  class="checkout-form">
-                          <a href="confirmation.html" class="btn btn-main mt-20">Place Order</a >
-                        </form>
+                    <div class="checkout-product-details">
+                      <div class="payment">
+                        <div class="card-details">
+                          <form method="post" action={% url 'place_order' %}>
+                            {% csrf_token %}
+                            <input type="hidden" id="msg2" name="address"></input>
+                            <input type="hidden" name="odr_itm_id" value="{{item.id}}">
+                            <input type="hidden"  name="tot" value="{{item.total}}">
+                            <input type="submit" class="btn btn-main mt-20" value="Place Order">
+                          </form>
+                        </div>
                       </div>
                     </div>
                   </div>
-                  </div>
-                </div>
               </div>
-            </div>
           </div>
         </div>
       </div>
     </div>
+  </div>
+</div>
     
 <script>
    //Billing Details
@@ -137,8 +147,8 @@
 
             success: function (data) {
                 // alert the error if any error occured
-                $("#msg2").html(data)
-
+                $("#msg2").val(data);
+                $("#msg1").css({"display":"block"});
             }
         })
     })
