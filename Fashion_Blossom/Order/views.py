@@ -45,11 +45,22 @@ def place_order(request):
     total_price=request.POST.get('tot')
     porder=Order(user_id=u_id,address_id=address,tot_price=total_price)
     porder.save()
-    print(porder.id)
     od=Order_Items.objects.get(id=odr_item_id)
     od.order_id=porder.id
     od.save()
-    return render(request, 'confirmation.html')
+    order=Order.objects.get(id=porder.id)
+    return render(request,'Payment.html',{'order':order})
+
+def payment(request):
+    order_id=request.POST.get('order_id')
+    amount=request.POST.get('amount')
+    pay_type=request.POST.get('pay')
+    if pay_type=="COD":
+        pytm=Payment(order_id=order_id,pay_type=pay_type,amount=amount)
+        pytm.save()
+        return render(request,'confirmation.html')
+    else:
+        pass
 
 def checkout(request):
     return render(request,'checkout.html')

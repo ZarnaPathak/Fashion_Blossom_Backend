@@ -1,0 +1,30 @@
+{% extends 'Master.html' %} {% block content %} {% load static %}
+<!-- Page Wrapper -->
+<section class="forget-password-page account">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+          <div class="block text-left">
+            <h2>Order Details</h2>
+            <h5>Order ID : {{order.id}}</h5>
+            <h5>Order Date : {{order.date}}</h5>
+            <h5>Order Amount : {{order.tot_price}}</h5>
+            <h5>Order Address : {{order.address.address}}</h5>
+            <h2 class="text-left">Payment Options</h2>
+            <form method="post" action={% url 'payment' %}>
+                {% csrf_token %}
+                <input type="hidden" name="order_id" value={{order.id}}>
+                <input type="hidden" name="amount" value={{order.tot_price}}>
+                <input type="radio" name="pay" value="COD">Cash On Delivery<br>
+                <input type="radio" name="pay" value="Online">Net Banking<br>
+                <input type="submit" value="Procced" class="btn btn-main mt-20" id="rzp-button1">
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+{% endblock %}
