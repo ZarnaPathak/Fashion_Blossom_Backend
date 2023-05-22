@@ -104,21 +104,25 @@
                     <span>Total</span>
                     <span>&#8377;{{item.total}}</span>
                   </div>
-                  <div class="block">
-                    <div class="checkout-product-details">
-                      <div class="payment">
-                        <div class="card-details">
+                  <hr color="grey">
                           <form method="post" action={% url 'place_order' %}>
                             {% csrf_token %}
-                            <input type="hidden" id="msg2" name="address"></input>
-                            <input type="hidden" name="odr_itm_id" value="{{item.id}}">
-                            <input type="hidden"  name="tot" value="{{item.total}}">
-                            <input type="submit" class="btn btn-main mt-20" value="Place Order">
+                            <h5 class="widget-title">Select Payment</h5>
+                            <input type="radio" name="pay" value="COD">Cash On Delivery<br>
+                            <input type="radio" name="pay" value="Online">Net Banking<br>
+                            <div class="block">
+                              <div class="checkout-product-details">
+                                <div class="payment">
+                                  <div class="card-details">
+                                      <input type="hidden" id="msg2" name="address"></input>
+                                      <input type="hidden" name="odr_itm_id" value="{{item.id}}">
+                                      <input type="hidden"  name="tot" value="{{item.total}}">
+                                      <input type="submit" class="btn btn-main mt-20" value="Place Order">
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
                           </form>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
               </div>
           </div>
         </div>

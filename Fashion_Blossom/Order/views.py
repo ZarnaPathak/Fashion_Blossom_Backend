@@ -1,7 +1,10 @@
 from django.shortcuts import render,redirect,HttpResponse
 from .models import *
 from Product.models import Product
-
+from Fashion_Blossom.settings import RAZORPAY_API_KEY, RAZORPAY_API_SECRET_KEY
+from django.conf import settings
+import razorpay
+client = razorpay.Client(auth=(settings.RAZORPAY_API_KEY, settings.RAZORPAY_API_SECRET_KEY))
 # Create your views here.
 def item_add(request):
     u_id=request.user.id
@@ -43,24 +46,40 @@ def place_order(request):
     odr_item_id=request.POST.get('odr_itm_id')
     address=request.POST.get('address')
     total_price=request.POST.get('tot')
-    porder=Order(user_id=u_id,address_id=address,tot_price=total_price)
+    pay_type=request.POST.get('pay')
+    porder=Order(user_id=u_id,address_id=address,tot_price=total_price,pay_type=pay_type)
     porder.save()
     od=Order_Items.objects.get(id=odr_item_id)
     od.order_id=porder.id
     od.save()
     order=Order.objects.get(id=porder.id)
-    return render(request,'Payment.html',{'order':order})
+    Payment.amount = od.total*100
+    order_currency = 'INR'
+    payment_order= client.order.create({'amount':Payment.amount, 'currency':order_currency, 'payment_capture': 1})
+    Payment.razor_pay_order_id = payment_order['id']
+    context = {
+        'total':Payment.amount,
+        'amount' : 500, 
+        'api_key':RAZORPAY_API_KEY, 
+        'payment_order': payment_order,
+        'order_id': Payment.razor_pay_order_id,
+        'order':order
+    }
+    return render(request,'Payment.html',context)
+
+def success(request):
+    order_id = request.GET.get('order_id')
+    total=request.GET.get('amount')
+    p_order=request.GET.get('p_order')
+    pay = Payment(razor_pay_order_id = order_id)
+    pay.is_paid = True
+    pay.amount=int(total)
+    pay.order_id=p_order
+    pay.save()
+    return render(request,'confirmation.html')
 
 def payment(request):
-    order_id=request.POST.get('order_id')
-    amount=request.POST.get('amount')
-    pay_type=request.POST.get('pay')
-    if pay_type=="COD":
-        pytm=Payment(order_id=order_id,pay_type=pay_type,amount=amount)
-        pytm.save()
-        return render(request,'confirmation.html')
-    else:
-        pass
-
+    return render(request,'confirmation.html')
+   
 def checkout(request):
     return render(request,'checkout.html')

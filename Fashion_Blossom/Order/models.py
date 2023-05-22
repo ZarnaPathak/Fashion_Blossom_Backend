@@ -17,6 +17,7 @@ class Order(models.Model):
     address=models.ForeignKey(Shipping_Address,on_delete=models.SET_NULL, null=True)
     date=models.DateField(default=date.today)
     tot_price=models.IntegerField()
+    pay_type=models.CharField(max_length=10, null=True, blank=True)
     status=(
         ('Procssing','Procssing'),
         ('Pending','Pending'),
@@ -36,7 +37,6 @@ class Order_Items(models.Model):
 
 class Payment(models.Model):
     order=models.ForeignKey(Order, on_delete=models.CASCADE)
-    pay_type=models.CharField(max_length=10, null=True, blank=True)
     amount=models.IntegerField(default=0)
     is_paid=models.BooleanField(default=False)
     razor_pay_order_id = models.CharField(max_length=100, null=True, blank=True)

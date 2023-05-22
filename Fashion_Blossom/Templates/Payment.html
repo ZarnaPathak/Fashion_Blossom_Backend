@@ -1,4 +1,5 @@
 {% extends 'Master.html' %} {% block content %} {% load static %}
+
 <!-- Page Wrapper -->
 <section class="forget-password-page account">
     <div class="container">
@@ -10,21 +11,53 @@
             <h5>Order Date : {{order.date}}</h5>
             <h5>Order Amount : {{order.tot_price}}</h5>
             <h5>Order Address : {{order.address.address}}</h5>
-            <h2 class="text-left">Payment Options</h2>
+            <h5>Payment Type : {{order.pay_type}}</h5>
             <form method="post" action={% url 'payment' %}>
                 {% csrf_token %}
                 <input type="hidden" name="order_id" value={{order.id}}>
                 <input type="hidden" name="amount" value={{order.tot_price}}>
-                <input type="radio" name="pay" value="COD">Cash On Delivery<br>
-                <input type="radio" name="pay" value="Online">Net Banking<br>
-                <input type="submit" value="Procced" class="btn btn-main mt-20" id="rzp-button1">
+                {% if order.pay_type == "Online" %}
+                  <input type="submit" value="Procced" class="btn btn-main mt-20" id="rzp-button1">
+                {% else %}
+                  <input type="submit" value="Procced" class="btn btn-main mt-20">
+                {% endif %}
             </form>
           </div>
         </div>
       </div>
     </div>
-  </section>
+</section>
 
-
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+    var options = {
+      "key": "{{api_key}}", // Enter the Key ID generated from the Dashboard
+      "amount": "{{order.tot_price}}",
+      "name": "Fashion Blossom", //your business name
+      "description": "Test Transaction",
+      "image": "{% static 'images/logo.jpg' %}",
+      "order_id": "{{order_id}}", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+      "handler": function(response) {
+        window.location.href = 'http://127.0.0.1:8000/Order/success/?order_id={{payment_order.id}}&p_order={{order.id}}&amount={{order.tot_price}}'
+      },
+      "theme": {
+        "color": "#3399cc"
+        },
+      };
+      var rzp1 = new Razorpay(options);
+      rzp1.on('payment.failed', function(response) {
+        alert(response.error.code);
+        alert(response.error.description);
+        alert(response.error.source);
+        alert(response.error.step);
+        alert(response.error.reason);
+        alert(response.error.metadata.order_id);
+        alert(response.error.metadata.payment_id);
+        });
+        document.getElementById('rzp-button1').onclick = function(e) {
+        rzp1.open();
+        e.preventDefault();
+      }
+</script>
 
 {% endblock %}
