@@ -3,22 +3,35 @@ from django.http import HttpResponse
 from django import forms
 from .form import *
 from Order.models import *
+from cat_subcat import display
 # Create your views here.
 def dashboard(request):
-    od=Order.objects.filter(user_id=request.user.id)
-    return render(request,'dashboard.html',{'order':od})
+    data={
+         'order':Order.objects.filter(user_id=request.user.id),
+         'context':display()
+    }
+    return render(request,'dashboard.html',data)
 
 def address(request):
-    add=Shipping_Address.objects.filter(user_id=request.user.id)
-    return render(request,'address.html',{'address':add})
+    data={
+        'address':Shipping_Address.objects.filter(user_id=request.user.id),
+        'context':display()
+    }
+    return render(request,'address.html',data)
 
 def orders(request):
-    od=Order.objects.filter(user_id=request.user.id)
-    return render(request,'order.html',{'order':od})
+    data={
+         'order':Order.objects.filter(user_id=request.user.id),
+         'context':display()
+    }
+    return render(request,'order.html',data)
 
 def profile_details(request):
-    add=Shipping_Address.objects.get(user_id=request.user.id)
-    return render(request,'profile-details.html',{'add':add})
+    data={
+        'add':Shipping_Address.objects.get(user_id=request.user.id),
+        'context':display()
+    }
+    return render(request,'profile-details.html',data)
 
 def avatarView(request):
   

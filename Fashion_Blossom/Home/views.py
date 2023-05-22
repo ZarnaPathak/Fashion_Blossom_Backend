@@ -1,26 +1,32 @@
 from django.shortcuts import render
-from Product.models import Category,SubCategory
+from Product.models import Category,SubCategory,Product
+from cat_subcat import display
 # Create your views here.
 def home(request):
-    cats=Category.objects.all()
-    subcats=SubCategory.objects.all()
-    ct={
-        'cats':cats,
-        'subcats':subcats
+    all_prod=Product.objects.all()
+    trendy_prod=all_prod[:3]
+    data={
+        'trendy':trendy_prod,
+        'context':display(),
     }
-    return render(request,'index.html',ct)
+    return render(request,'index.html',data)
 
 def contact(request):
-    return render(request,'contact.html')
+    context=display()
+    return render(request,'contact.html',context)
 
 def about(request):
-    return render(request,'about.html')
+    context=display()
+    return render(request,'about.html',context)
 
 def error(request):
-    return render(request,'404.html')
+    context=display()
+    return render(request,'404.html',context)
 
 def faq(request):
-    return render(request,'faq.html')
+    context=display()
+    return render(request,'faq.html',context)
 
 def confirmation(request):
-    return render(request,'confirmation.html')
+    context=display()
+    return render(request,'confirmation.html',context)

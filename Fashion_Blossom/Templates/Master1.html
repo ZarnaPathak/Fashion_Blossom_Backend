@@ -40,7 +40,6 @@
 
 <body id="body">
 
-    
     <!-- Main Menu Section -->
     <section class="menu">
         <nav class="navbar navigation">
@@ -77,12 +76,12 @@
                             <a href="#!" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="350" role="button" aria-haspopup="true" aria-expanded="false">Shop<span class="tf-ion-ios-arrow-down"></span></a>
                             <div class="dropdown-menu">
                                 <div class="row">
-                                    {% for cat in cats %}
+                                    {% for cat in context.cats %}
                                         <div class="col-sm-4 col-xs-12">
                                             <ul>
                                                 <li class="dropdown-header">{{cat.name}}</li>
                                                 <li role="separator" class="divider"></li>
-                                                {% for subcat in subcats %}
+                                                {% for subcat in context.subcats %}
                                                     {% if subcat.cat_name == cat.name %}
                                                         <li><a href="{% url 'shop' subcat.id %}">{{subcat.name}}</a></li>
                                                     {% endif %}
@@ -107,6 +106,11 @@
                                 <li><a href="{% url 'address' %}">Address</a></li>
                                 <li><a href="{% url 'profile_details' %}">Profile Details</a></li>
                                 <li><a href="{% url 'logout' %}">Logout</a></li>
+                                <!--<li><a href="blog-left-sidebar.html">Blog Left Sidebar</a></li>
+                                <li><a href="blog-right-sidebar.html">Blog Right Sidebar</a></li>
+                                <li><a href="blog-full-width.html">Blog Full Width</a></li>
+                                <li><a href="blog-grid.html">Blog 2 Columns</a></li>
+                                <li><a href="blog-single.html">Blog Single</a></li>-->
                             </ul>
                             {% else %}
                             <li class="dropdown">
@@ -190,8 +194,6 @@
 	</div>
 </footer>
 
-    <!-- Essential Scripts=====================================-->
-    
     <!-- Main jQuery -->
     <script src="{% static 'plugins/jquery/dist/jquery.min.js' %}"></script>
     <!-- Bootstrap 3.1 -->
