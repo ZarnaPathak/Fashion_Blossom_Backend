@@ -16,7 +16,8 @@ def orders(request):
     return render(request,'order.html',{'order':od})
 
 def profile_details(request):
-    return render(request,'profile-details.html')
+    add=Shipping_Address.objects.get(user_id=request.user.id)
+    return render(request,'profile-details.html',{'add':add})
 
 def avatarView(request):
   
