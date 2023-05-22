@@ -29,9 +29,9 @@
 						<div class="preview-meta">
 							<ul>
 								<li>
-									<span  data-toggle="modal" data-target="#product-modal">
+									<a href="{% url 'product_details' prod.id %}">
 										<i class="tf-ion-ios-search-strong"></i>
-									</span>
+									</a>
 								</li>
 								<li>
 			                        <a href="{% url 'add_to_wish' prod.id %}"><i class="tf-ion-ios-heart"></i></a>

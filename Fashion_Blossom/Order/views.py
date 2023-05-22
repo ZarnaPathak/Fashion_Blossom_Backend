@@ -34,7 +34,8 @@ def shipping_details(request):
     city=request.POST.get('city')
     phone=request.POST.get('phone')
     if Shipping_Address.objects.filter(user_id=uid,zipcode=zipcode).exists():
-        return HttpResponse('Details Already Exist..')
+        add=Shipping_Address.objects.get(zipcode=zipcode)
+        return HttpResponse(add.id)
     else:
         details=Shipping_Address(user_id=uid,address=address,zipcode=zipcode,country=country,state=state,city=city,phone_no=phone)
         details.save()

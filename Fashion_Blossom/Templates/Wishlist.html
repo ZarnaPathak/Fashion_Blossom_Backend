@@ -38,7 +38,7 @@
                       <td class="">
                         <div class="product-info">
                           <img width="80" src="{{wish.img1.url}}" alt="" />
-                          <a href="#!">{{wish.product_name}}</a>
+                          <a href="{% url 'product_details' wish.product_id %}">{{wish.product_name}}</a>
                         </div>
                       </td>
                       <td class="">&#8377;{{wish.price}}</td>

@@ -95,9 +95,9 @@
 							<div class="preview-meta">
 								<ul>
 									<li>
-										<span  data-toggle="modal" data-target="#product-modal">
+										<a href="{% url 'product_details' i.id %}">
 											<i class="tf-ion-ios-search-strong"></i>
-										</span>
+										</a>
 									</li>
 									<li>
 										<a href="{% url 'add_to_wish' i.id %}" ><i class="tf-ion-ios-heart"></i></a>
@@ -115,7 +115,7 @@
 					</div>
 				</div>
 		
-			<!-- Modal -->
+			<!-- Modal 
 			<div class="modal product-modal fade" id="product-modal">
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<i class="tf-ion-close"></i>
@@ -142,8 +142,8 @@
 						</div>
 					</div>
 				</div>
-			</div><!-- /.modal -->
-		{% endfor %}
+			</div> /.modal -->
+			{% endfor %}
 		</div>
 	</div>
 </section>

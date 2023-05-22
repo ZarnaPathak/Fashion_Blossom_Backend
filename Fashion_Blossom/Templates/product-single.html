@@ -98,7 +98,7 @@
 							<li><a href="product-single.html">Soap</a></li>
 						</ul>
 					</div>
-					<a href="cart.html" class="btn btn-main mt-20">Add To Wishlist</a> &nbsp;&nbsp;
+					<a href="{% url 'add_to_wish' data.id %}" class="btn btn-main mt-20">Add To Wishlist</a> &nbsp;&nbsp;
 					<input type="submit" value="Buy Now" class="btn btn-main mt-20"></input>
 				</div>
 			</form>
@@ -213,66 +213,36 @@
 		</div>
 		<div class="row">
 			{% for i in sub_prod %}
-			<div class="col-md-3">
-				<div class="product-item">
-					<div class="product-thumb">
-						<span class="bage">Sale</span>
-						<img class="img-responsive" src="{{i.img1.url}}" alt="product-img" />
-						<div class="preview-meta">
-							<ul>
-								<li>
-									<span  data-toggle="modal" data-target="#product-modal">
-										<i class="tf-ion-ios-search"></i>
-									</span>
-								</li>
-								<li>
-			                        <a href="{% url 'add_to_wish' i.id %}" ><i class="tf-ion-ios-heart"></i></a>
-								</li>
-								<li>
-									<a href="#!"><i class="tf-ion-android-cart"></i></a>
-								</li>
-							</ul>
-                      	</div>
-					</div>
-					<div class="product-content">
-						<h4><a href="{% url 'product_details' i.id %}">{{i.product_name}}</a></h4>
-						<p class="price">&#8377;{{i.price}}</p>
+				<div class="col-md-3">
+					<div class="product-item">
+						<div class="product-thumb">
+							<span class="bage">Sale</span>
+							<img class="img-responsive" src="{{i.img1.url}}" alt="product-img" />
+							<div class="preview-meta">
+								<ul>
+									<li>
+										<a href="{% url 'product_details' i.id %}">
+											<i class="tf-ion-ios-search-strong"></i>
+										</a>
+									</li>
+									<li>
+										<a href="{% url 'add_to_wish' i.id %}" ><i class="tf-ion-ios-heart"></i></a>
+									</li>
+									<li>
+										<a href="#!"><i class="tf-ion-android-cart"></i></a>
+									</li>
+								</ul>
+							</div>
+						</div>
+						<div class="product-content">
+							<h4><a href="{% url 'product_details' i.id %}">{{i.product_name}}</a></h4>
+							<p class="price">&#8377;{{i.price}}</p>
+						</div>
 					</div>
 				</div>
-			</div>
+			{% endfor %}
 		</div>
 	</div>
 </section>
-
-<!-- Modal -->
-<div class="modal product-modal fade" id="product-modal">
-	<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-		<i class="tf-ion-close"></i>
-	</button>
-  	<div class="modal-dialog " role="document">
-    	<div class="modal-content">
-	      	<div class="modal-body">
-	        	<div class="row">
-	        		<div class="col-md-8">
-	        			<div class="modal-image">
-		        			<img class="img-responsive" src="{{i.img1.url}}" />
-	        			</div>
-	        		</div>
-	        		<div class="col-md-3">
-	        			<div class="product-short-details">
-	        				<h2 class="product-title">{{i.product_name}}</h2>
-	        				<p class="product-price">&#8377;{{i.price}}</p>
-	        				<p class="product-short-description">{{i.description}}</p>
-	        				<a href="{% url 'add_to_wish' i.id %}" class="btn btn-main">Add To Wishlist</a>
-	        				<a href="{% url 'product_details' i.id %}" class="btn btn-transparent">View Product Details</a>
-	        			</div>
-	        		</div>
-	        	</div>
-	        </div>
-    	</div>
-  	</div>
-</div>
-
-{% endfor %}
 
 {% endblock %}

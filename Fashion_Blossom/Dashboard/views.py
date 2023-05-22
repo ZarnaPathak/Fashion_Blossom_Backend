@@ -27,8 +27,13 @@ def orders(request):
     return render(request,'order.html',data)
 
 def profile_details(request):
+    adds=Shipping_Address.objects.filter(user_id=request.user.id)
+    if adds.count()==0:
+        add=Shipping_Address.objects.filter(user_id=request.user.id)
+    else:
+        add=adds[0]
     data={
-        'add':Shipping_Address.objects.get(user_id=request.user.id),
+        'add':add,
         'context':display()
     }
     return render(request,'profile-details.html',data)
