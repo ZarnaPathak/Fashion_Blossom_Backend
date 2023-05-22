@@ -12,7 +12,8 @@ def address(request):
     return render(request,'address.html',{'address':add})
 
 def orders(request):
-    return render(request,'order.html')
+    od=Order.objects.filter(user_id=request.user.id)
+    return render(request,'order.html',{'order':od})
 
 def profile_details(request):
     return render(request,'profile-details.html')
