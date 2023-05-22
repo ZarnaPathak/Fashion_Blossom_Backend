@@ -5,7 +5,8 @@ from .form import *
 from Order.models import *
 # Create your views here.
 def dashboard(request):
-    return render(request,'dashboard.html')
+    od=Order.objects.filter(user_id=request.user.id)
+    return render(request,'dashboard.html',{'order':od})
 
 def address(request):
     add=Shipping_Address.objects.filter(user_id=request.user.id)
